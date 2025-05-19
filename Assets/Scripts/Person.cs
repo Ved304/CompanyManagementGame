@@ -17,18 +17,21 @@ public class Person
         _salary = (_skill + 1) * 1000;
     }
 
-    public string GetName()
-    {
-        return _name; 
+    public string Name
+    { 
+        get { return _name; }
+        private set { }
     }
 
-    public int GetSalary()
+    public int Salary
     {
-        return _salary;
+        get { return _salary; }
+        private set { }
     }
 
-    public int GetSkill()
+    public int Skill
     {
-        return _skill;
+        get { return _skill; }
+        private set { }
     }
 }
