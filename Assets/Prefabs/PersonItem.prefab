@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 85360303364253495}
   - component: {fileID: 2521571838918066909}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Salary Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -480,7 +480,7 @@ GameObject:
   - component: {fileID: 2884973757514255646}
   - component: {fileID: 2719827187794546364}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Name Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -614,7 +614,7 @@ GameObject:
   - component: {fileID: 5376244715475736920}
   - component: {fileID: 7978062536733742735}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Skill Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

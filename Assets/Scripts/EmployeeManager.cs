@@ -6,9 +6,9 @@ public class EmployeeManager : MonoBehaviour
 {
     private List<Person> _employeeList = new List<Person>();
     private List<Person> _candidateList = new List<Person>();
-    private float _recruitmentCooldown = 60f;
+    private float _recruitmentCooldown = 5f;
 
-    public void CreateCandidateList()
+    public List<Person> CreateCandidateList()
     {
         if(_recruitmentCooldown <= 0)
         {
@@ -17,6 +17,8 @@ public class EmployeeManager : MonoBehaviour
             _candidateList.Add(new Person());
             _candidateList.Add(new Person());
         }
+
+        return _candidateList;
     }
 
     public List<Person> Employees
