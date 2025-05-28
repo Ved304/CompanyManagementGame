@@ -7,22 +7,31 @@ using UnityEngine.UI;
 
 public class UIGameScene : MonoBehaviour
 {
+    //Panels
     [SerializeField] private GameObject _jobsPanel;
     [SerializeField] private GameObject _projectsPanel;
     [SerializeField] private GameObject _HRPanel;
 
+    //HR panel
     [SerializeField] private GameObject _employeeManager;
     [SerializeField] private TMP_Text _recruitmentCooldownTimer;
-
-    [SerializeField] private GameObject _prefabPersonItem;
-    [SerializeField] private GameObject _prefabJobItem;
-    [SerializeField] private GameObject _prefabProjectItem;
-
     [SerializeField] private GameObject _HRContentRight;
     [SerializeField] private GameObject _HRContentLeft;
 
     private List<Person> _candidates = new List<Person>();
     private List<Person> _employees = new List<Person>();
+
+    //Job and project panel
+    [SerializeField] private GameObject _projectsManager;
+    [SerializeField] private GameObject _jobsContent;
+
+    private List<Project> _projects = new List<Project>();
+    private List<Project> _jobs = new List<Project>();
+
+    //Prefabs
+    [SerializeField] private GameObject _prefabPersonItem;
+    [SerializeField] private GameObject _prefabJobItem;
+    [SerializeField] private GameObject _prefabProjectItem;
 
     public void SwitchToJobs()
     {
@@ -102,9 +111,30 @@ public class UIGameScene : MonoBehaviour
         RefreshEmployees();
     }
 
+    public void RefreshJobs()
+    {
+        _jobs = _projectsManager.GetComponent<ProjectsManager>().Jobs;
+
+        for (int i = 0; i < _jobsContent.transform.childCount; i++)
+        {
+            Destroy(_jobsContent.transform.GetChild(i).gameObject);
+        }
+
+        foreach (Project p in _jobs)
+        {
+            GameObject instantiated = Instantiate(_prefabJobItem, _jobsContent.transform);
+            instantiated.transform.GetChild(0).GetComponent<TMP_Text>().text = p.Name;
+            instantiated.transform.GetChild(1).GetComponent<TMP_Text>().text = p.Duration.ToString();
+            instantiated.transform.GetChild(2).GetComponent<TMP_Text>().text = p.Reward.ToString();
+            instantiated.transform.GetChild(3).GetComponent<TMP_Text>().text = p.Difficulty.ToString();
+        }
+    }
+
     private void Update()
     {
         int recruitmentCooldown = Mathf.RoundToInt(_employeeManager.GetComponent<EmployeeManager>().RecruitmentCooldown);
         _recruitmentCooldownTimer.text = recruitmentCooldown.ToString();
+
+        RefreshJobs();
     }
 }
