@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using TMPro;
 
 public class EmployeeManager : MonoBehaviour
 {
     private List<Person> _employeeList = new List<Person>();
     private List<Person> _candidateList = new List<Person>();
-    private float _recruitmentCooldown = 5f;
+    private float _recruitmentCooldown = 10f;
 
-    public List<Person> CreateCandidateList()
+    public void CreateCandidateList()
     {
         if(_recruitmentCooldown <= 0)
         {
@@ -16,9 +18,34 @@ public class EmployeeManager : MonoBehaviour
             _candidateList.Add(new Person());
             _candidateList.Add(new Person());
             _candidateList.Add(new Person());
+            _recruitmentCooldown = 10f;
         }
+    }
 
-        return _candidateList;
+    public void Hire(string id)
+    {
+        foreach (Person p in _candidateList)
+        {
+            if (p.ID == id)
+            {
+                _employeeList.Add(p);
+                _candidateList.Remove(p);
+                break;
+            }
+        }
+    }
+
+    public void Fire(string id)
+    {
+        foreach (Person p in _employeeList)
+        {
+            if (p.ID == id)
+            {
+                _candidateList.Add(p);
+                _employeeList.Remove(p);
+                break;
+            }
+        }
     }
 
     public List<Person> Employees
