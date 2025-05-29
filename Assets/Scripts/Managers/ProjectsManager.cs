@@ -16,6 +16,19 @@ public class ProjectsManager : MonoBehaviour
         _jobList.Add(new Project());
     }
 
+    public void AcceptProject(string name)
+    {
+        foreach (Project p in _jobList)
+        {
+            if(p.Name == name)
+            {
+                _projectList.Add(p);
+                _jobList.Remove(p);
+                break;
+            }
+        }
+    }
+
     public List<Project> Jobs
     {
         get { return _jobList; }

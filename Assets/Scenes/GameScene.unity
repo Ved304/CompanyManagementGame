@@ -122,11 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &31211188 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3389507585748807487, guid: 292d3e9ccef749940a319f3150160992, type: 3}
-  m_PrefabInstance: {fileID: 1659159342}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &34036514
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,6 +405,10 @@ PrefabInstance:
     - target: {fileID: 2683800964290709547, guid: 292d3e9ccef749940a319f3150160992, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3389507585748807487, guid: 292d3e9ccef749940a319f3150160992, type: 3}
+      propertyPath: m_Name
+      value: HRRightContent
       objectReference: {fileID: 0}
     - target: {fileID: 4733446279423972907, guid: 292d3e9ccef749940a319f3150160992, type: 3}
       propertyPath: m_Pivot.x
@@ -837,11 +836,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 439929726}
   m_CullTransparentMesh: 1
---- !u!1 &455977208 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3389507585748807487, guid: 292d3e9ccef749940a319f3150160992, type: 3}
-  m_PrefabInstance: {fileID: 232833202}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &817170022
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,15 +954,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8640424757b24543a06f67310f89bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jobsPanel: {fileID: 1688302626}
-  _projectsPanel: {fileID: 274036503}
-  _HRPanel: {fileID: 2124198512}
-  _employeeManager: {fileID: 1352012248}
   _recruitmentCooldownTimer: {fileID: 1811305652}
-  _HRContentRight: {fileID: 455977208}
-  _HRContentLeft: {fileID: 31211188}
-  _projectsManager: {fileID: 1459154456}
-  _jobsContent: {fileID: 2121018663}
   _prefabPersonItem: {fileID: 964833929590333405, guid: 7539dae9fbdf9e6469f10e09f6eb10fc, type: 3}
   _prefabJobItem: {fileID: 7964538562269037457, guid: 1f454db6e73ca494093933867c89bb02, type: 3}
   _prefabProjectItem: {fileID: 5920773746751111861, guid: 90e0708ff58d50840bc719d4ab165425, type: 3}
@@ -2263,6 +2249,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3389507585748807487, guid: 292d3e9ccef749940a319f3150160992, type: 3}
+      propertyPath: m_Name
+      value: HRLeftContent
+      objectReference: {fileID: 0}
     - target: {fileID: 4733446279423972907, guid: 292d3e9ccef749940a319f3150160992, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -2582,6 +2572,10 @@ PrefabInstance:
     - target: {fileID: 2683800964290709547, guid: 292d3e9ccef749940a319f3150160992, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3389507585748807487, guid: 292d3e9ccef749940a319f3150160992, type: 3}
+      propertyPath: m_Name
+      value: JobsContent
       objectReference: {fileID: 0}
     - target: {fileID: 4733446279423972907, guid: 292d3e9ccef749940a319f3150160992, type: 3}
       propertyPath: m_Pivot.x
@@ -2907,6 +2901,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3389507585748807487, guid: 292d3e9ccef749940a319f3150160992, type: 3}
+      propertyPath: m_Name
+      value: ProjectsContent
+      objectReference: {fileID: 0}
     - target: {fileID: 4733446279423972907, guid: 292d3e9ccef749940a319f3150160992, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -3008,11 +3006,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 292d3e9ccef749940a319f3150160992, type: 3}
---- !u!1 &2121018663 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3389507585748807487, guid: 292d3e9ccef749940a319f3150160992, type: 3}
-  m_PrefabInstance: {fileID: 1768690543}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2124198512
 GameObject:
   m_ObjectHideFlags: 0
