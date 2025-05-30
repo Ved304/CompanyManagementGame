@@ -8,17 +8,18 @@ public class EmployeeManager : MonoBehaviour
 {
     private List<Person> _employeeList = new List<Person>();
     private List<Person> _candidateList = new List<Person>();
-    private float _recruitmentCooldown = 10f;
+    private float _recruitmentCooldown = GameManager.DAY;
 
     public void CreateCandidateList()
     {
         if(_recruitmentCooldown <= 0)
         {
             _candidateList.Clear();
-            _candidateList.Add(new Person());
-            _candidateList.Add(new Person());
-            _candidateList.Add(new Person());
-            _recruitmentCooldown = 10f;
+            for(int i = 0; i < 12; i++)
+            {
+                _candidateList.Add(new Person());
+            }
+            _recruitmentCooldown = GameManager.DAY;
         }
     }
 

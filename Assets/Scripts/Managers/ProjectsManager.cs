@@ -6,14 +6,15 @@ public class ProjectsManager : MonoBehaviour
 {
     private List<Project> _jobList = new List<Project>();
     private List<Project> _projectList = new List<Project>();
-    private float _jobsCooldown = 100f;
+    private float _jobsCooldown = 10 * GameManager.DAY;
 
     public void CreateJobList()
     {
         _jobList.Clear();
-        _jobList.Add(new Project());
-        _jobList.Add(new Project());
-        _jobList.Add(new Project());
+        for(int i = 0; i < 6; i++)
+        {
+            _jobList.Add(new Project());
+        }
     }
 
     public void AcceptProject(string name)
@@ -54,7 +55,8 @@ public class ProjectsManager : MonoBehaviour
         }
         else
         {
-            _jobsCooldown = 100f;
+            CreateJobList();
+            _jobsCooldown = 10 * GameManager.DAY;
         }
     }
 }

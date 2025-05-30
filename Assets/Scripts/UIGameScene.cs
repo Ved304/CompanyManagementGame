@@ -7,8 +7,12 @@ using UnityEngine.UI;
 
 public class UIGameScene : MonoBehaviour
 {
+    private GameObject _gameManager;
+
+    [SerializeField] private TMP_Text _budgetText;
+
     //Panels
-    private GameObject _jobsPanel;
+    private GameObject _detailsPanel;
     private GameObject _projectsPanel;
     private GameObject _HRPanel;
 
@@ -34,18 +38,8 @@ public class UIGameScene : MonoBehaviour
     [SerializeField] private GameObject _prefabJobItem;
     [SerializeField] private GameObject _prefabProjectItem;
 
-    public void SwitchToJobs()
-    {
-        _jobsPanel.SetActive(true);
-        _projectsPanel.SetActive(false);
-        _HRPanel.SetActive(false);
-
-        RefreshJobs();
-    }
-
     public void SwitchToProjects()
     {
-        _jobsPanel.SetActive(false);
         _projectsPanel.SetActive(true);
         _HRPanel.SetActive(false);
 
@@ -54,12 +48,13 @@ public class UIGameScene : MonoBehaviour
 
     public void SwitchToHR()
     {
-        _jobsPanel.SetActive(false);
         _projectsPanel.SetActive(false);
         _HRPanel.SetActive(true);
+
+        RefreshHR();
     }
 
-    public void RefreshCandidates()
+    public void RefreshHR()
     {
         _candidates = _employeeManager.GetComponent<EmployeeManager>().Candidates;
 
@@ -77,10 +72,7 @@ public class UIGameScene : MonoBehaviour
             instantiated.transform.GetChild(3).GetChild(0).GetComponent<TMP_Text>().text = "Hire";
             instantiated.transform.GetChild(4).GetComponent<TMP_Text>().text = p.ID;
         }
-    }
 
-    public void RefreshEmployees()
-    {
         _employees = _employeeManager.GetComponent<EmployeeManager>().Employees;
 
         for (int i = 0; i < _HRContentLeft.transform.childCount; i++)
@@ -99,7 +91,7 @@ public class UIGameScene : MonoBehaviour
         }
     }
 
-    public void RefreshJobs()
+    public void RefreshProjects()
     {
         _jobs = _projectsManager.GetComponent<ProjectsManager>().Jobs;
 
@@ -116,10 +108,7 @@ public class UIGameScene : MonoBehaviour
             instantiated.transform.GetChild(2).GetComponent<TMP_Text>().text = p.Reward.ToString();
             instantiated.transform.GetChild(3).GetComponent<TMP_Text>().text = p.Difficulty.ToString();
         }
-    }
 
-    public void RefreshProjects()
-    {
         _projects = _projectsManager.GetComponent<ProjectsManager>().Projects;
 
         for (int i = 0; i < _projectsContent.transform.childCount; i++)
@@ -139,7 +128,9 @@ public class UIGameScene : MonoBehaviour
 
     private void Start()
     {
-        _jobsPanel = GameObject.Find("JobsPanel");
+        _gameManager = GameObject.Find("GameManager");
+
+        _detailsPanel = GameObject.Find("DetailsPanel");
         _projectsPanel = GameObject.Find("ProjectsPanel");
         _HRPanel = GameObject.Find("HRPanel");
 
@@ -156,5 +147,7 @@ public class UIGameScene : MonoBehaviour
     {
         int recruitmentCooldown = Mathf.RoundToInt(_employeeManager.GetComponent<EmployeeManager>().RecruitmentCooldown);
         _recruitmentCooldownTimer.text = recruitmentCooldown.ToString();
+
+        _budgetText.text = _gameManager.GetComponent<GameManager>().Budget.ToString();
     }
 }
