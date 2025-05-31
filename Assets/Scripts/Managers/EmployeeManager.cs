@@ -49,6 +49,30 @@ public class EmployeeManager : MonoBehaviour
         }
     }
 
+    public void AssignProject(string id, string projectName)
+    {
+        foreach (Person p in _employeeList)
+        {
+            if (p.ID == id)
+            {
+                p.AssignedProject = projectName;
+                break;
+            }
+        }
+    }
+
+    public void UnassignProject(string id, string projectName)
+    {
+        foreach (Person p in _employeeList)
+        {
+            if (p.ID == id)
+            {
+                p.AssignedProject = null;
+                break;
+            }
+        }
+    }
+
     public List<Person> Employees
     {
         get { return _employeeList; }

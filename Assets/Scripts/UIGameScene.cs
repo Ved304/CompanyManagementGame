@@ -10,6 +10,7 @@ public class UIGameScene : MonoBehaviour
     private GameObject _gameManager;
 
     [SerializeField] private TMP_Text _budgetText;
+    [SerializeField] private TMP_Text _currentDay;
 
     //Panels
     private GameObject _detailsPanel;
@@ -32,6 +33,16 @@ public class UIGameScene : MonoBehaviour
 
     private List<Project> _projects = new List<Project>();
     private List<Project> _jobs = new List<Project>();
+
+    //Details panel
+    private GameObject _detailsContentRight;
+    private GameObject _detailsContentLeft;
+
+    [SerializeField] private TMP_Text _projectName;
+    [SerializeField] private TMP_Text _projectDeadline;
+    [SerializeField] private TMP_Text _projectStatus;
+    [SerializeField] private TMP_Text _projectReward;
+    [SerializeField] private TMP_Text _projectDifficulty;
 
     //Prefabs
     [SerializeField] private GameObject _prefabPersonItem;
@@ -67,7 +78,7 @@ public class UIGameScene : MonoBehaviour
         {
             GameObject instantiated = Instantiate(_prefabPersonItem, _HRContentRight.transform);
             instantiated.transform.GetChild(0).GetComponent<TMP_Text>().text = p.Name;
-            instantiated.transform.GetChild(1).GetComponent<TMP_Text>().text = p.Salary.ToString();
+            instantiated.transform.GetChild(1).GetComponent<TMP_Text>().text = p.Salary.ToString() + "$";
             instantiated.transform.GetChild(2).GetComponent<TMP_Text>().text = p.Skill.ToString();
             instantiated.transform.GetChild(3).GetChild(0).GetComponent<TMP_Text>().text = "Hire";
             instantiated.transform.GetChild(4).GetComponent<TMP_Text>().text = p.ID;
@@ -84,7 +95,7 @@ public class UIGameScene : MonoBehaviour
         {
             GameObject instantiated = Instantiate(_prefabPersonItem, _HRContentLeft.transform);
             instantiated.transform.GetChild(0).GetComponent<TMP_Text>().text = p.Name;
-            instantiated.transform.GetChild(1).GetComponent<TMP_Text>().text = p.Salary.ToString();
+            instantiated.transform.GetChild(1).GetComponent<TMP_Text>().text = p.Salary.ToString() + "$";
             instantiated.transform.GetChild(2).GetComponent<TMP_Text>().text = p.Skill.ToString();
             instantiated.transform.GetChild(3).GetChild(0).GetComponent<TMP_Text>().text = "Fire";
             instantiated.transform.GetChild(4).GetComponent<TMP_Text>().text = p.ID;
@@ -105,7 +116,7 @@ public class UIGameScene : MonoBehaviour
             GameObject instantiated = Instantiate(_prefabJobItem, _jobsContent.transform);
             instantiated.transform.GetChild(0).GetComponent<TMP_Text>().text = p.Name;
             instantiated.transform.GetChild(1).GetComponent<TMP_Text>().text = p.Duration.ToString();
-            instantiated.transform.GetChild(2).GetComponent<TMP_Text>().text = p.Reward.ToString();
+            instantiated.transform.GetChild(2).GetComponent<TMP_Text>().text = p.Reward.ToString() + "$";
             instantiated.transform.GetChild(3).GetComponent<TMP_Text>().text = p.Difficulty.ToString();
         }
 
@@ -121,8 +132,63 @@ public class UIGameScene : MonoBehaviour
             GameObject instantiated = Instantiate(_prefabProjectItem, _projectsContent.transform);
             instantiated.transform.GetChild(0).GetComponent<TMP_Text>().text = p.Name;
             instantiated.transform.GetChild(1).GetComponent<TMP_Text>().text = p.Duration.ToString();
-            instantiated.transform.GetChild(2).GetComponent<TMP_Text>().text = p.Reward.ToString();
+            instantiated.transform.GetChild(2).GetComponent<TMP_Text>().text = p.Reward.ToString() + "$";
             instantiated.transform.GetChild(3).GetComponent<TMP_Text>().text = p.Difficulty.ToString();
+        }
+    }
+
+    public void RefreshDetails(string name)
+    {
+        _projects = _projectsManager.GetComponent<ProjectsManager>().Projects;
+
+        foreach(Project p in _projects)
+        {
+            if(p.Name == name)
+            {
+                _projectName.text = p.Name;
+                _projectDeadline.text = "day " + p.Deadline.ToString();
+                _projectStatus.text = p.Duration.ToString();
+                _projectReward.text = p.Reward.ToString() + "$";
+                _projectDifficulty.text = p.Difficulty.ToString();
+            }
+        }
+
+        _employees = _employeeManager.GetComponent<EmployeeManager>().Employees;
+
+        for (int i = 0; i < _detailsContentRight.transform.childCount; i++)
+        {
+            Destroy(_detailsContentRight.transform.GetChild(i).gameObject);
+        }
+
+        foreach (Person p in _employees)
+        {
+            if(p.AssignedProject != name)
+            {
+                GameObject instantiated = Instantiate(_prefabPersonItem, _detailsContentRight.transform);
+                instantiated.transform.GetChild(0).GetComponent<TMP_Text>().text = p.Name;
+                instantiated.transform.GetChild(1).GetComponent<TMP_Text>().text = p.Salary.ToString() + "$";
+                instantiated.transform.GetChild(2).GetComponent<TMP_Text>().text = p.Skill.ToString();
+                instantiated.transform.GetChild(3).GetChild(0).GetComponent<TMP_Text>().text = "Assign";
+                instantiated.transform.GetChild(4).GetComponent<TMP_Text>().text = p.ID;
+            }
+        }
+
+        for (int i = 0; i < _detailsContentLeft.transform.childCount; i++)
+        {
+            Destroy(_detailsContentLeft.transform.GetChild(i).gameObject);
+        }
+
+        foreach (Person p in _employees)
+        {
+            if(p.AssignedProject == name)
+            {
+                GameObject instantiated = Instantiate(_prefabPersonItem, _detailsContentLeft.transform);
+                instantiated.transform.GetChild(0).GetComponent<TMP_Text>().text = p.Name;
+                instantiated.transform.GetChild(1).GetComponent<TMP_Text>().text = p.Salary.ToString() + "$";
+                instantiated.transform.GetChild(2).GetComponent<TMP_Text>().text = p.Skill.ToString();
+                instantiated.transform.GetChild(3).GetChild(0).GetComponent<TMP_Text>().text = "Remove";
+                instantiated.transform.GetChild(4).GetComponent<TMP_Text>().text = p.ID;
+            }
         }
     }
 
@@ -141,6 +207,8 @@ public class UIGameScene : MonoBehaviour
         _HRContentLeft = GameObject.Find("HRLeftContent");
         _jobsContent = GameObject.Find("JobsContent");
         _projectsContent = GameObject.Find("ProjectsContent");
+        _detailsContentRight = GameObject.Find("DetailsContentRight");
+        _detailsContentLeft = GameObject.Find("DetailsContentLeft");
     }
 
     private void Update()
@@ -148,6 +216,7 @@ public class UIGameScene : MonoBehaviour
         int recruitmentCooldown = Mathf.RoundToInt(_employeeManager.GetComponent<EmployeeManager>().RecruitmentCooldown);
         _recruitmentCooldownTimer.text = recruitmentCooldown.ToString();
 
-        _budgetText.text = _gameManager.GetComponent<GameManager>().Budget.ToString();
+        _budgetText.text = _gameManager.GetComponent<GameManager>().Budget.ToString() + "$";
+        _currentDay.text = "Day: " + _gameManager.GetComponent<GameManager>().CurrentDay.ToString();
     }
 }

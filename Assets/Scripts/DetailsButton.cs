@@ -20,6 +20,8 @@ public class DetailsButton : MonoBehaviour
         GameObject canvas = GameObject.Find("Canvas");
         string projectName = transform.parent.gameObject.transform.GetChild(0).GetComponent<TMP_Text>().text;
 
+        canvas.GetComponent<UIGameScene>().RefreshDetails(projectName);
+
         projectsPanel.SetActive(false);
     }
 }

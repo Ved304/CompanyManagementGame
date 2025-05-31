@@ -11,6 +11,7 @@ public class Person
 
     private string _personID, _fullName;
     private int _salary, _skill;
+    private string _assignedProject;
 
     public Person()
     {
@@ -42,5 +43,11 @@ public class Person
     {
         get { return _skill; }
         private set { }
+    }
+
+    public string AssignedProject
+    {
+        get { return _assignedProject; }
+        set { _assignedProject = value; }
     }
 }

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     //Variables
     private int _budget;
+    private int _currentDay = 1;
 
     //Managers
     private GameObject _employeeManager;
@@ -18,6 +19,12 @@ public class GameManager : MonoBehaviour
     public int Budget
     {
         get { return _budget; }
+        private set { }
+    }
+
+    public int CurrentDay
+    {
+        get { return _currentDay; }
         private set { }
     }
 
@@ -40,6 +47,13 @@ public class GameManager : MonoBehaviour
         {
             _budget -= p.Salary;
         }
+
+        _budget -= 1000;
+    }
+
+    private void CountDays()
+    {
+        _currentDay++;
     }
 
     // Start is called before the first frame update
@@ -48,9 +62,10 @@ public class GameManager : MonoBehaviour
         _employeeManager = GameObject.Find("EmployeeManager");
         _projectManager = GameObject.Find("ProjectManager");
 
-        _budget = 10000;
+        _budget = 30000;
 
         InvokeRepeating("DeductMoney", MONTH, MONTH);
+        InvokeRepeating("CountDays", DAY, DAY);
     }
 
     // Update is called once per frame
