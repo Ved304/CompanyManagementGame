@@ -22,6 +22,19 @@ public class Project
         _projectName = "Project " + _alphabet[Random.Range(0, _alphabet.Length)] + Random.Range(1, 130).ToString();
     }
 
+    public void AdvanceProject()
+    {
+        if(_isTaken == true)
+        {
+            List<Person> employees = new List<Person>();
+            employees = GameObject.Find("EmployeeManager").GetComponent<EmployeeManager>().GetProjectMembers(_projectName);
+            foreach (Person p in employees)
+            {
+                _duration -= p.Skill;
+            }
+        }
+    }
+
     public string Name
     {
         get { return _projectName; }
@@ -61,14 +74,6 @@ public class Project
     public bool IsTaken
     {
         get { return _isTaken; }
-        private set { }
-    }
-
-    private void Update()
-    {
-        if (_isTaken == true)
-        {
-            _duration -= Time.deltaTime;
-        }
+        set { _isTaken = value; }
     }
 }

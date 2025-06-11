@@ -38,6 +38,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void DoubleTime()
+    {
+        Time.timeScale = 2;
+    }
+
     private void DeductMoney()
     {
         Debug.Log("Deducting");
@@ -54,6 +59,11 @@ public class GameManager : MonoBehaviour
     private void CountDays()
     {
         _currentDay++;
+    }
+
+    public void GivePenalty(int penalty)
+    {
+        _budget -= penalty;
     }
 
     // Start is called before the first frame update

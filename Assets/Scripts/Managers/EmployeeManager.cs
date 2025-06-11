@@ -73,6 +73,32 @@ public class EmployeeManager : MonoBehaviour
         }
     }
 
+    public void UnassignMany(string projectName)
+    {
+        foreach (Person p in _employeeList)
+        {
+            if (p.AssignedProject == projectName)
+            {
+                p.AssignedProject = null;
+            }
+        }
+    }
+
+    public List<Person> GetProjectMembers(string projectName)
+    {
+        List<Person> members = new List<Person>();
+
+        foreach(Person p in _employeeList)
+        {
+            if(p.AssignedProject == projectName)
+            {
+                members.Add(p);
+            }
+        }
+
+        return members;
+    }
+
     public List<Person> Employees
     {
         get { return _employeeList; }

@@ -23,10 +23,19 @@ public class ProjectsManager : MonoBehaviour
         {
             if(p.Name == name)
             {
+                p.IsTaken = true;
                 _projectList.Add(p);
                 _jobList.Remove(p);
                 break;
             }
+        }
+    }
+
+    public void CallAdvancing()
+    {
+        foreach (Project p in _projectList)
+        {
+            p.AdvanceProject();
         }
     }
 
@@ -45,6 +54,8 @@ public class ProjectsManager : MonoBehaviour
     private void Start()
     {
         CreateJobList();
+
+        InvokeRepeating("CallAdvancing", GameManager.DAY, GameManager.DAY);
     }
 
     private void Update()
@@ -57,6 +68,16 @@ public class ProjectsManager : MonoBehaviour
         {
             CreateJobList();
             _jobsCooldown = 10 * GameManager.DAY;
+        }
+
+        foreach(Project p in _projectList)
+        {
+            if(p.Deadline < GameObject.Find("GameManager").GetComponent<GameManager>().CurrentDay)
+            {
+                GameObject.Find("GameManager").GetComponent<GameManager>().GivePenalty(p.Penalty);
+                GameObject.Find("EmployeeManager").GetComponent<EmployeeManager>().UnassignMany(p.Name);
+                _projectList.Remove(p);
+            }
         }
     }
 }
